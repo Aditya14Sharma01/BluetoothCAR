@@ -1,0 +1,87 @@
+// Motor driver pins
+const int IN1 = 10;  // Left motor forward
+const int IN2 = 9;   // Left motor backward
+const int IN3 = 8;   // Right motor forward
+const int IN4 = 7;   // Right motor backward
+
+// LED pins
+const int FRONT_LED = 13;
+const int BACK_LED = 12;
+const int EXTRA_LED = 11;
+
+// Temperature sensor pin
+const int TEMP_SENSOR_PIN = A0;
+
+// Bluetooth command
+char command = ' ';
+
+// Timing variables
+unsigned long previousMillis = 0;
+const long interval = 1000; // 1 second for temperature readings
+
+void setup() {
+  // Initialize motor pins
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+
+  // Initialize LED pins
+  pinMode(FRONT_LED, OUTPUT);
+  pinMode(BACK_LED, OUTPUT);
+  pinMode(EXTRA_LED, OUTPUT);
+
+  // Initialize serial communication
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Check if Bluetooth command is available
+  if (Serial.available() > 0) {
+    command = Serial.read();
+
+    // Using switch for handling motor and LED control
+    switch (command) {
+      case 'W':  // Forward
+        digitalWrite(IN1, HIGH);
+        digitalWrite(IN2, LOW);
+        digitalWrite(IN3, HIGH);
+        digitalWrite(IN4, LOW);
+        Serial.println("Moving Forward");
+        break;
+
+      case 'S':  // Backward
+        digitalWrite(IN1, LOW);
+        digitalWrite(IN2, HIGH);
+        digitalWrite(IN3, LOW);
+        digitalWrite(IN4, HIGH);
+        Serial.println("Moving Backward");
+        break;
+
+      case 'A':  // Left
+        digitalWrite(IN1, LOW);
+        digitalWrite(IN2, HIGH);
+        digitalWrite(IN3, HIGH);
+        digitalWrite(IN4, LOW);
+        Serial.println("Turning Left");
+        break;
+
+      case 'D':  // Right
+        digitalWrite(IN1, HIGH);
+        digitalWrite(IN2, LOW);
+        digitalWrite(IN3, LOW);
+        digitalWrite(IN4, HIGH);
+        Serial.println("Turning Right");
+        break;
+
+      case 'X':  // Stop
+        digitalWrite(IN1, LOW);
+        digitalWrite(IN2, LOW);
+        digitalWrite(IN3, LOW);
+        digitalWrite(IN4, LOW);
+        Serial.println("Stopping");
+        break;
+
+      case 'Z':  // Front LED ON
+        digitalWrite(FRONT_LED, HIGH);
+   
