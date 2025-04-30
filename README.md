@@ -9,8 +9,8 @@ This is a DIY Bluetooth-controlled car built using an **Arduino Uno**, **HC-05 B
 
 - Wireless Bluetooth control using HC-05
 - Motor control via L298N H-Bridge
-- Forward, backward, left, right, stop commands
-- Compatible with Android smartphone apps
+- Forward, backward, left, right, stop, lights, buzzer commands
+- Compatible with Android/Iphone smartphone apps
 - Modular and expandable for future upgrades
 
 ---
@@ -22,12 +22,12 @@ This is a DIY Bluetooth-controlled car built using an **Arduino Uno**, **HC-05 B
 | Arduino Uno R3         | 1        |
 | HC-05 Bluetooth Module | 1        |
 | L298N Motor Driver     | 1        |
-| DC Gear Motors         | 2 or 4   |
-| Car Chassis (2WD/4WD)  | 1        |
-| Wheels                 | 2 or 4   |
-| Battery (6V–12V)       | 1        |
+| DC Gear Motors         | 4        |
+| Car Chassis (4WD)      | 1        |
+| Wheels                 | 4        |
+| Battery (12V)          | 1        |
 | Jumper Wires           | -        |
-| Smartphone (Android)   | 1        |
+| Smartphone             | 1        |
 
 ---
 
