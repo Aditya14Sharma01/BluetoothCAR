@@ -70,7 +70,7 @@ It records characters sent via Bluetooth and drives the motors accordingly.
 ## 📸 Demo Images
 
 ![Car](images/sampleT.png)
-![Car](images/IMG-20250416-WA0012-removebg-preview - Copy.png)
+![Car](images/img2.png)
 
 ---
 
