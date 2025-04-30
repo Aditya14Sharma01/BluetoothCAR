@@ -9,7 +9,7 @@ This is a DIY Bluetooth-controlled car built using an **Arduino Uno**, **HC-05 B
 
 - Wireless Bluetooth control using HC-05
 - Motor control via L298N H-Bridge
-- Forward, backward, left, right, stop, lights, buzzer commands
+- Forward, backward, left, right, stop, lights commands
 - Compatible with Android/Iphone smartphone apps
 - Modular and expandable for future upgrades
 
@@ -33,7 +33,7 @@ This is a DIY Bluetooth-controlled car built using an **Arduino Uno**, **HC-05 B
 
 ## 🔌 Wiring Diagram
 
-📎 Place image here: `circuit.png`
+`images/circuit.png`
 
 ---
 
@@ -42,47 +42,35 @@ This is a DIY Bluetooth-controlled car built using an **Arduino Uno**, **HC-05 B
 The Arduino sketch is located in the `car_code/` folder:
 - File: `bluetooth_car.ino`
 
-It listens to characters sent via Bluetooth and drives the motors accordingly.
+It records characters sent via Bluetooth and drives the motors accordingly.
 
 **Sample Commands:**
-- `F` → Forward
-- `B` → Backward
-- `L` → Left
-- `R` → Right
-- `S` → Stop
-
+- `W` → Forward
+- `S` → Backward
+- `A` → Left
+- `D` → Right
+- `X` → Stop
+- `F` → Front Led On
+- `f` → Front Led Off
+- `B` → Back Led On
+- `b` → Back Led Off
 ---
 
 ## 📱 Android App Control
 
-You can use any Bluetooth controller app that can send characters, such as:
-- [Bluetooth Electronics](https://play.google.com/store/apps/details?id=com.keuwl.arduinobluetoothcontroller)
-- [Arduino Bluetooth Controller](https://play.google.com/store/apps/details?id=braulio.calle.bluetoothRCController)
-
-Or, build your own using:
-- MIT App Inventor ([https://appinventor.mit.edu](https://appinventor.mit.edu))
-
-📎 You can include your `.apk` or `.aia` file in the `/app/` folder.
-
----
+[note incomplete]
 
 ## 🚀 How to Run
 
-1. Upload `bluetooth_car.ino` to the Arduino Uno using the Arduino IDE.
+1. Upload `code.ino` to the Arduino Uno using the Arduino IDE.
 2. Power the car with a battery pack (avoid USB during motor operation).
 3. Pair HC-05 with your phone (`Default password: 1234` or `0000`).
 4. Open your Bluetooth controller app and connect.
-5. Use buttons to send `F`, `B`, `L`, `R`, `S` commands to move the car.
-
 ---
 
 ## 📸 Demo Images
 
-Add your car photos here:
-
-
-
-![Car](images/car_front.jpg)
+![Car](images/sampleT.jpg)
 
 ---
 
@@ -100,12 +88,6 @@ You can upgrade this car with:
 
 ## 👨‍💻 Author & Credits
 
-- **Your Name** – [GitHub Profile](https://github.com/yourusername)
-- Inspired by various online tutorials and Arduino projects
+- **Aditya Sharma ** – [GitHub Profile](https://github.com/aditya14sharma01)
 - Feel free to fork or modify this project!
 
----
-
-## 📄 License
-
-This project is open-source under the [MIT License](LICENSE).
