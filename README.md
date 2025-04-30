@@ -33,12 +33,7 @@ This is a DIY Bluetooth-controlled car built using an **Arduino Uno**, **HC-05 B
 
 ## 🔌 Wiring Diagram
 
-Add a labeled image like this in the `images/` folder:
-
-
-
-
-📎 Place image here: `images/circuit_diagram.png`
+📎 Place image here: `images/circuit.png`
 
 ---
 
