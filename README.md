@@ -38,8 +38,9 @@ This is a DIY Bluetooth-controlled car built using an **Arduino Uno**, **HC-05 B
 ## 💻 Arduino Code
 
 The Arduino sketch is located in the `car_code/` folder:
-- File: `bluetooth_car.ino`
-
+- File: `code.txt`
+- File: `code.ino`
+  
 It records characters sent via Bluetooth and drives the motors accordingly.
 
 **Sample Commands:**
