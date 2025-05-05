@@ -9,15 +9,13 @@ const int FRONT_LED = 13;
 const int BACK_LED = 12;
 const int EXTRA_LED = 11;
 
-// Temperature sensor pin
-const int TEMP_SENSOR_PIN = A0;
-
 // Bluetooth command
 char command = ' ';
+bool isMoving = false;
 
-// Timing variables
-unsigned long previousMillis = 0;
-const long interval = 1000; // 1 second for temperature readings
+// Timing for auto-stop
+unsigned long lastCommandTime = 0;
+const unsigned long timeout = 1000; // 1 second timeout
 
 void setup() {
   // Initialize motor pins
@@ -35,10 +33,21 @@ void setup() {
   Serial.begin(9600);
 }
 
+void stopMotors() {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+  if (isMoving) {
+    Serial.println("Auto Stop - Bluetooth Timeout");
+    isMoving = false;
+  }
+}
+
 void loop() {
-  // Check if Bluetooth command is available
   if (Serial.available() > 0) {
     command = Serial.read();
+    lastCommandTime = millis();  // Update last command time
 
     // Using switch for handling motor and LED control
     switch (command) {
@@ -48,6 +57,7 @@ void loop() {
         digitalWrite(IN3, HIGH);
         digitalWrite(IN4, LOW);
         Serial.println("Moving Forward");
+        isMoving = true;
         break;
 
       case 'S':  // Backward
@@ -56,6 +66,7 @@ void loop() {
         digitalWrite(IN3, LOW);
         digitalWrite(IN4, HIGH);
         Serial.println("Moving Backward");
+        isMoving = true;
         break;
 
       case 'A':  // Left
@@ -64,6 +75,7 @@ void loop() {
         digitalWrite(IN3, HIGH);
         digitalWrite(IN4, LOW);
         Serial.println("Turning Left");
+        isMoving = true;
         break;
 
       case 'D':  // Right
@@ -72,16 +84,52 @@ void loop() {
         digitalWrite(IN3, LOW);
         digitalWrite(IN4, HIGH);
         Serial.println("Turning Right");
+        isMoving = true;
         break;
 
       case 'X':  // Stop
-        digitalWrite(IN1, LOW);
-        digitalWrite(IN2, LOW);
-        digitalWrite(IN3, LOW);
-        digitalWrite(IN4, LOW);
+        stopMotors();
         Serial.println("Stopping");
         break;
 
       case 'Z':  // Front LED ON
         digitalWrite(FRONT_LED, HIGH);
-   
+        Serial.println("Front LED ON");
+        break;
+
+      case 'z':  // Front LED OFF
+        digitalWrite(FRONT_LED, LOW);
+        Serial.println("Front LED OFF");
+        break;
+
+      case 'B':  // Back LED ON
+        digitalWrite(BACK_LED, HIGH);
+        Serial.println("Back LED ON");
+        break;
+
+      case 'b':  // Back LED OFF
+        digitalWrite(BACK_LED, LOW);
+        Serial.println("Back LED OFF");
+        break;
+
+      case 'E':  // Extra LED ON
+        digitalWrite(EXTRA_LED, HIGH);
+        Serial.println("Extra LED ON");
+        break;
+
+      case 'e':  // Extra LED OFF
+        digitalWrite(EXTRA_LED, LOW);
+        Serial.println("Extra LED OFF");
+        break;
+
+      default:
+        Serial.println("Unknown Command");
+        break;
+    }
+  }
+
+  // Auto-stop if no command received recently
+  if (millis() - lastCommandTime > timeout) {
+    stopMotors();
+  }
+}
