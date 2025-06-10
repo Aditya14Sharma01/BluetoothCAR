@@ -1,135 +1,89 @@
-// Motor driver pins
-const int IN1 = 10;  // Left motor forward
-const int IN2 = 9;   // Left motor backward
-const int IN3 = 8;   // Right motor forward
-const int IN4 = 7;   // Right motor backward
+// Motor pins
+#define IN1 3
+#define IN2 4
+#define IN3 9
+#define IN4 10
+#define ENA 2
+#define ENB 11
 
 // LED pins
-const int FRONT_LED = 13;
-const int BACK_LED = 12;
-const int EXTRA_LED = 11;
+#define WHITE_LED 13
+#define RED_LED 12
 
-// Bluetooth command
-char command = ' ';
-bool isMoving = false;
-
-// Timing for auto-stop
-unsigned long lastCommandTime = 0;
-const unsigned long timeout = 1000; // 1 second timeout
+char cmd;
+int speedMotor = 200;
 
 void setup() {
-  // Initialize motor pins
-  pinMode(IN1, OUTPUT);
-  pinMode(IN2, OUTPUT);
-  pinMode(IN3, OUTPUT);
-  pinMode(IN4, OUTPUT);
-
-  // Initialize LED pins
-  pinMode(FRONT_LED, OUTPUT);
-  pinMode(BACK_LED, OUTPUT);
-  pinMode(EXTRA_LED, OUTPUT);
-
-  // Initialize serial communication
   Serial.begin(9600);
-}
 
-void stopMotors() {
-  digitalWrite(IN1, LOW);
-  digitalWrite(IN2, LOW);
-  digitalWrite(IN3, LOW);
-  digitalWrite(IN4, LOW);
-  if (isMoving) {
-    Serial.println("Auto Stop - Bluetooth Timeout");
-    isMoving = false;
-  }
+  // Motor pins
+  pinMode(IN1, OUTPUT); pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT); pinMode(IN4, OUTPUT);
+  pinMode(ENA, OUTPUT); pinMode(ENB, OUTPUT);
+
+  // LEDs
+  pinMode(WHITE_LED, OUTPUT);
+  pinMode(RED_LED, OUTPUT);
+
+  stopMotors();
 }
 
 void loop() {
-  if (Serial.available() > 0) {
-    command = Serial.read();
-    lastCommandTime = millis();  // Update last command time
+  if (Serial.available()) {
+    cmd = Serial.read();
 
-    // Using switch for handling motor and LED control
-    switch (command) {
-      case 'W':  // Forward
-        digitalWrite(IN1, HIGH);
-        digitalWrite(IN2, LOW);
-        digitalWrite(IN3, HIGH);
-        digitalWrite(IN4, LOW);
-        Serial.println("Moving Forward");
-        isMoving = true;
-        break;
+    switch (cmd) {
+      case 'F': forward(); break;
+      case 'B': backward(); break;
+      case 'L': left(); break;
+      case 'R': right(); break;
+      case 'S': stopMotors(); break;
 
-      case 'S':  // Backward
-        digitalWrite(IN1, LOW);
-        digitalWrite(IN2, HIGH);
-        digitalWrite(IN3, LOW);
-        digitalWrite(IN4, HIGH);
-        Serial.println("Moving Backward");
-        isMoving = true;
-        break;
+      case '1': speedMotor = 100; break;
+      case '2': speedMotor = 150; break;
+      case '3': speedMotor = 200; break;
+      case '4': speedMotor = 255; break;
 
-      case 'A':  // Left
-        digitalWrite(IN1, LOW);
-        digitalWrite(IN2, HIGH);
-        digitalWrite(IN3, HIGH);
-        digitalWrite(IN4, LOW);
-        Serial.println("Turning Left");
-        isMoving = true;
-        break;
+      case 'W': digitalWrite(WHITE_LED, HIGH); break;
+      case 'w': digitalWrite(WHITE_LED, LOW); break;
 
-      case 'D':  // Right
-        digitalWrite(IN1, HIGH);
-        digitalWrite(IN2, LOW);
-        digitalWrite(IN3, LOW);
-        digitalWrite(IN4, HIGH);
-        Serial.println("Turning Right");
-        isMoving = true;
-        break;
-
-      case 'X':  // Stop
-        stopMotors();
-        Serial.println("Stopping");
-        break;
-
-      case 'Z':  // Front LED ON
-        digitalWrite(FRONT_LED, HIGH);
-        Serial.println("Front LED ON");
-        break;
-
-      case 'z':  // Front LED OFF
-        digitalWrite(FRONT_LED, LOW);
-        Serial.println("Front LED OFF");
-        break;
-
-      case 'B':  // Back LED ON
-        digitalWrite(BACK_LED, HIGH);
-        Serial.println("Back LED ON");
-        break;
-
-      case 'b':  // Back LED OFF
-        digitalWrite(BACK_LED, LOW);
-        Serial.println("Back LED OFF");
-        break;
-
-      case 'E':  // Extra LED ON
-        digitalWrite(EXTRA_LED, HIGH);
-        Serial.println("Extra LED ON");
-        break;
-
-      case 'e':  // Extra LED OFF
-        digitalWrite(EXTRA_LED, LOW);
-        Serial.println("Extra LED OFF");
-        break;
-
-      default:
-        Serial.println("Unknown Command");
-        break;
+      case 'Z': digitalWrite(RED_LED,HIGH); break;
+      case 'z': digitalWrite(RED_LED, LOW); break;
     }
   }
+}
 
-  // Auto-stop if no command received recently
-  if (millis() - lastCommandTime > timeout) {
-    stopMotors();
-  }
+// Movement functions
+void forward() {
+  digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);
+  analogWrite(ENA, speedMotor);
+  analogWrite(ENB, speedMotor);
+}
+
+void backward() {
+  digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, LOW); digitalWrite(IN4, HIGH);
+  analogWrite(ENA, speedMotor);
+  analogWrite(ENB, speedMotor);
+}
+
+void left() {
+  digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);
+  analogWrite(ENA, speedMotor);
+  analogWrite(ENB, speedMotor);
+}
+
+void right() {
+  digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW); digitalWrite(IN4, HIGH);
+  analogWrite(ENA, speedMotor);
+  analogWrite(ENB, speedMotor);
+}
+
+void stopMotors() {
+  digitalWrite(IN1, LOW); digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW); digitalWrite(IN4, LOW);
+  analogWrite(ENA, 0); analogWrite(ENB, 0);
 }
