@@ -75,7 +75,7 @@ The APK File is located in the `Application/` folder:
 ## 📸 Demo Images
 
 ![Car](images/hello.png)
-![Car](images/img2.png)
+![Car](images/sample.jpg)
 
 ---
 
