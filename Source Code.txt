@@ -44,8 +44,8 @@ void loop() {
       case '3': speedMotor = 200; break;
       case '4': speedMotor = 255; break;
 
-      case 'W': digitalWrite(WHITE_LED, HIGH); break;
-      case 'w': digitalWrite(WHITE_LED, LOW); break;
+      case 'Y': digitalWrite(WHITE_LED, HIGH); break;
+      case 'y': digitalWrite(WHITE_LED, LOW); break;
 
       case 'Z': digitalWrite(RED_LED,HIGH); break;
       case 'z': digitalWrite(RED_LED, LOW); break;

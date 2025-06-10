@@ -38,30 +38,35 @@ This is a DIY Bluetooth-controlled car built using an **Arduino Uno**, **HC-05 B
 ## 💻 Arduino Code
 
 The Arduino sketch is located in the `car_code/` folder:
-- File: `code.txt`
-- File: `code.ino`
-  
+- File: `Source Code.txt`
+- File: `Source Code.ino`
 It records characters sent via Bluetooth and drives the motors accordingly.
 
 **Sample Commands:**
-- `W` → Forward
-- `S` → Backward
-- `A` → Left
-- `D` → Right
-- `X` → Stop
-- `F` → Front Led On
-- `f` → Front Led Off
-- `B` → Back Led On
-- `b` → Back Led Off
+- `F` → Forward
+- `B` → Backward
+- `L` → Left
+- `R` → Right
+- `S` → Stop
+- `Y` → Front Led On
+- `y` → Front Led Off
+- `Z` → Back Led On
+- `z` → Back Led Off
 ---
 
 ## 📱 Android App Control
 
-[note incomplete]
+The Car Currently Supports only Android Software
+
+The APK File is located in the `Application/` folder:
+
+- APK : `BTCAR.apk`
+
+---
 
 ## 🚀 How to Run
 
-1. Upload `code.ino` to the Arduino Uno using the Arduino IDE.
+1. Upload `Source Code.ino` to the Arduino Uno using the Arduino IDE.
 2. Power the car with a battery pack (avoid USB during motor operation).
 3. Pair HC-05 with your phone (`Default password: 1234` or `0000`).
 4. Open your Bluetooth controller app and connect.
@@ -69,7 +74,7 @@ It records characters sent via Bluetooth and drives the motors accordingly.
 
 ## 📸 Demo Images
 
-![Car](images/sampleT.png)
+![Car](images/hello.png)
 ![Car](images/img2.png)
 
 ---
@@ -88,6 +93,12 @@ You can upgrade this car with:
 
 ## 👨‍💻 Author & Credits
 
-- **Aditya Sharma ** – [GitHub Profile](https://github.com/aditya14sharma01)
-- Feel free to fork or modify this project!
+- `Aditya Sharma` – [GitHub Profile](https://github.com/aditya14sharma01)
 
+
+
+
+
+
+
+- Feel free to fork or modify this project!
